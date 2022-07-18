@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>ECommPay.PaymentPage.SDK</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="System-Web-Helpers.dll" Version="1.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="example\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="example\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="example\**" />
+    </ItemGroup>
+
+</Project>
