@@ -61,7 +61,7 @@ public class SignatureHandler : ISignatureHandler
                 continue;
             }
 
-            var paramKey = (prefix != "" ? prefix +  ISignatureHandler.KeyValueDelimiter : "") + key;
+            var paramKey = (prefix != "" ? prefix +  ISignatureHandler.KeyValueDelimiter : "") + key.Replace(":", "::");
             var realValue = value;
 
             if (bool.TryParse(realValue.ToString(), out var boolVal))
