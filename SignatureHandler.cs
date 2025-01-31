@@ -31,7 +31,7 @@ public class SignatureHandler : ISignatureHandler
     public string Sign(IDynamicObject parameters)
     {
         var options = string.Join(ISignatureHandler.ItemsDelimiter, GetParamsToSign(parameters.Dictionary(), _ignoredKeys));
-        var encoding = new System.Text.ASCIIEncoding();
+        var encoding = new System.Text.UTF8Encoding();
         var hash = new HMACSHA512(encoding.GetBytes(_secretKey));
 
         return Convert.ToBase64String(hash.ComputeHash(encoding.GetBytes(options)));
