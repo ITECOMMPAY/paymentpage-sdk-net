@@ -100,7 +100,7 @@ public class Payment : DynamicObject, IPayment
             dictionary.Remove("card_operation_type");
         }
 
-    return new Payment(dictionary);
+        return new Payment(dictionary);
     }
 
     // If you try to get a value of a property
