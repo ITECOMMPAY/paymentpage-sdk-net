@@ -90,8 +90,7 @@ public class Payment : DynamicObject, IPayment
                          
         if (dictionary.ContainsKey("card_operation_type"))
         {
-            Console.WriteLine("⚠️ 'card_operation_type' is deprecated. Use 'operation_type' instead");
-
+            // Property 'card_operation_type' is deprecated. Use 'operation_type' instead
             if (!dictionary.ContainsKey("operation_type"))
             {
                 dictionary["operation_type"] = dictionary["card_operation_type"];
@@ -130,9 +129,9 @@ public class Payment : DynamicObject, IPayment
 
         var name = binder.Name.ToLower();
 
+        // Property 'card_operation_type' is deprecated. Use 'operation_type' instead
         if (string.Equals(name, "card_operation_type", StringComparison.OrdinalIgnoreCase))
         {
-            Console.WriteLine("⚠️ 'card_operation_type' is deprecated. Use 'operation_type' instead");
             name = "operation_type";
         }
 
