@@ -87,6 +87,18 @@ public class Payment : DynamicObject, IPayment
     {
         var dictionary = JsonSerializer.Deserialize<Dictionary<string, object>>(data)
                          ??  throw new Exception("Deserialize failed.");
+                         
+        if (dictionary.ContainsKey("card_operation_type"))
+        {
+            // Property 'card_operation_type' is deprecated. Use 'operation_type' instead
+            if (!dictionary.ContainsKey("operation_type"))
+            {
+                dictionary["operation_type"] = dictionary["card_operation_type"];
+            }
+
+            dictionary.Remove("card_operation_type");
+        }
+
         return new Payment(dictionary);
     }
 
@@ -116,6 +128,12 @@ public class Payment : DynamicObject, IPayment
         }
 
         var name = binder.Name.ToLower();
+
+        // Property 'card_operation_type' is deprecated. Use 'operation_type' instead
+        if (string.Equals(name, "card_operation_type", StringComparison.OrdinalIgnoreCase))
+        {
+            name = "operation_type";
+        }
 
         // Converting the property name to lowercase
         // so that property names become case-insensitive.
