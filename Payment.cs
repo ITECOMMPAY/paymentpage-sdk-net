@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -53,6 +54,54 @@ public class Payment : DynamicObject, IPayment
     public IPayment SetTestMode()
     {
         _testMode = true;
+
+        return this;
+    }
+
+    public IPayment SetBookingInfo(object bookingInfo)
+    {
+        if (bookingInfo == null)
+        {
+            throw new ArgumentNullException(
+                nameof(bookingInfo),
+                "bookingInfo cannot be null"
+            );
+        }
+
+        string json;
+
+        try
+        {
+            json = JsonSerializer.Serialize(bookingInfo);
+        }
+        catch (Exception ex)
+        {
+            throw new ArgumentException(
+                "bookingInfo is not a valid serializable object",
+                nameof(bookingInfo),
+                ex
+            );
+        }
+
+        if (string.IsNullOrWhiteSpace(json) || json == "{}")
+        {
+            throw new ArgumentException(
+                "bookingInfo cannot be empty",
+                nameof(bookingInfo)
+            );
+        }
+
+        byte[] bytes = Encoding.UTF8.GetBytes(json);
+        string base64 = Convert.ToBase64String(bytes);
+
+        if (string.IsNullOrWhiteSpace(base64))
+        {
+            throw new InvalidOperationException(
+                "Failed to encode bookingInfo to Base64"
+            );
+        }
+
+        _dictionary.Add("booking_info", base64);
 
         return this;
     }
