@@ -11,6 +11,7 @@ public interface IPayment: IDynamicObject
     public IPayment SetPaymentAmount(int amount);
     public IPayment SetPaymentCurrency(string currency);
     public IPayment SetPaymentDescription(string description);
+    public IPayment SetBookingInfo(object bookingInfo);
 
     public IPayment SetTestMode();
 
